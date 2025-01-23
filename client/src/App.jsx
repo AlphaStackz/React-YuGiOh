@@ -1,17 +1,50 @@
 import { data } from "../public/data.js"
+ import Card from "./Components/Card.jsx"
+ import { useState } from "react"
 
 function App() {
+    const [cart,setCart]=useState([]);
     console.log(data)
+
+    const handleAddToCart=(title)=>{
+        if(!data.find((item)=>{item.title==title})){
+            setCart([...cart,{"title":title,"amount":1}])
+        }
+        else{
+            const tempArr=[...cart]
+            const amount=tempArr.find((item)=>{item.title==title})
+            tempArr[amount].amount += 1
+            setCart(tempArr)
+
+        }
+
+        console.log("added to cart")
+    }
+   const handleRemoveFromCart=()=>{
+        console.log("removed from cart")
+    }
   return <>
+  <div id="home-page">
+
+  <section id="yugi-section" >
       {data.map((item) => (
-          <div key={item.id}>
-              <p>{item.id}</p>
-              <p>{item.title}</p>
-              <p>{item.lore}</p>
-              <img src={item.imageUrl} alt={item.title}/>
-          </div>
+        <Card card={item} 
+        AddToCart={handleAddToCart} 
+        RemoveFromCart={handleRemoveFromCart}/>
           )
       )}
+      </section>
+      <section id="cart-section">
+        <h2>shopping cart</h2>
+        {cart.length == 0 ?
+            <p>Cart is empty</p>
+            :
+            cart.map(
+              (item, index) => <p key={item + "-" + index}>{item.title}, {item.amount}</p>
+            )
+        }
+      </section>
+      </div>
     </>
 }
 
