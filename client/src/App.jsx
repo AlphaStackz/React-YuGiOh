@@ -19,8 +19,23 @@ function App() {
 
         console.log("added to cart")
     }
-   const handleRemoveFromCart = ()=> {
-        console.log("removed from cart")
+   const handleRemoveFromCart = (title)=> {
+        const tempArr=[...cart]
+        const amount=tempArr.findIndex(item=> item.title == title) //findIndex() is a method in React
+
+        if(cart.length==0){
+        alert("cart is already empty!!! ")
+    }
+        else if(cart[amount].amount <=1){
+        const newCart = cart.filter((item, i) =>i !== amount )
+        setCart(newCart);
+
+     }
+        else if (cart[amount].amount >1){
+        const amount=tempArr.findIndex(item=> item.title==title) //findIndex() is a method in React
+        tempArr[amount].amount -= 1
+        setCart(tempArr)
+     }
     }
   return <>
   <div id="home-page">
