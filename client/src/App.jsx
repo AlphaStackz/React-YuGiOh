@@ -3,24 +3,23 @@ import { data } from "../public/data.js"
  import { useState } from "react"
 
 function App() {
-    const [cart,setCart]=useState([]);
+    const [cart,setCart] = useState([]);
     console.log(data)
 
-    const handleAddToCart=(title)=>{
-        if(!data.find((item)=>{item.title==title})){
+    const handleAddToCart = (title)=> {
+        if(!cart.find(item=> item.title==title)) { // !cart <- not !data
             setCart([...cart,{"title":title,"amount":1}])
         }
-        else{
+        else {
             const tempArr=[...cart]
-            const amount=tempArr.find((item)=>{item.title==title})
+            const amount=tempArr.findIndex(item=> item.title==title) //findIndex() is a method in React
             tempArr[amount].amount += 1
             setCart(tempArr)
-
         }
 
         console.log("added to cart")
     }
-   const handleRemoveFromCart=()=>{
+   const handleRemoveFromCart = ()=> {
         console.log("removed from cart")
     }
   return <>
