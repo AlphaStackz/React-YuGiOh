@@ -2,6 +2,7 @@ import React from 'react'
 import { data } from '../../public/data.js'
 import Card from '../Components/Card.jsx'
  import { useState } from "react"
+ import { Link } from 'react-router-dom'
 
 
 const Home = () => {
@@ -43,14 +44,18 @@ const Home = () => {
   return (
 <div id="home-page">
 
-<section id="yugi-section" >
-    {data.map((item) => (
-      <Card card={item} 
-      AddToCart={handleAddToCart} 
-      RemoveFromCart={handleRemoveFromCart}/>
-        )
-    )}
-    </section>
+<section id="yugi-section">
+  {data.map((item) => (
+    <Link to={`/item/${item.id}`} key={item.id}>
+      <Card 
+        card={item} 
+        AddToCart={handleAddToCart} 
+        RemoveFromCart={handleRemoveFromCart} 
+      />
+    </Link>
+  ))}
+</section>
+
     <section id="cart-section">
       <h2>shopping cart</h2>
       {cart.length == 0 ?

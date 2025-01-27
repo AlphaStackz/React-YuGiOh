@@ -6,10 +6,11 @@ const Card = ({card,AddToCart,RemoveFromCart}) => {
         <div key={id}>
               <h3>{title}</h3>
               <p>{lore}</p>
-              <h2>attribute:{attribute}</h2>
               <img src={imageUrl} alt={title} width={"240px"} height={"300px"}/>
-              <button onClick={()=>AddToCart(title)}>Add to cart</button>
-              <button onClick={()=>RemoveFromCart(title)}>Remove from cart</button>
+              {/* make it optional prorps and pass it just if AddToCart props requested */}
+              {AddToCart &&<button onClick={()=>AddToCart(title)}>Add to cart</button>} 
+              {/* make it optional prorps and pass it just if RemoveFromCart props requested */}
+              {RemoveFromCart &&<button onClick={()=>RemoveFromCart(title)}>Remove from cart</button>}
 
           </div>
   )
